@@ -1,6 +1,9 @@
 package ex2
 
+import scala.util.Random
+
 type Position = (Int, Int)
+
 enum Direction:
   case North, East, South, West
   def turnRight: Direction = this match
@@ -8,7 +11,6 @@ enum Direction:
     case Direction.East  => Direction.South
     case Direction.South => Direction.West
     case Direction.West  => Direction.North
-
   def turnLeft: Direction = this match
     case Direction.North => Direction.West
     case Direction.West  => Direction.South
@@ -41,6 +43,25 @@ class LoggingRobot(val robot: Robot) extends Robot:
   override def act(): Unit =
     robot.act()
     println(robot.toString)
+
+class RobotWithBattery(val robot: Robot, private var batteryCharge: Int) extends Robot:
+  export robot.{direction, position, turn}
+  override def act(): Unit =
+    if batteryCharge > 0 then
+      batteryCharge = batteryCharge - 1
+      robot.act()
+
+class RobotCanFail(val robot: Robot, val failProbability: Double) extends Robot:
+  require(0 to 1 contains failProbability)
+  export robot.{direction, position, turn}
+  private val random: Random = Random()
+  override def act(): Unit =
+    if random.nextDouble() > failProbability then robot.act()
+
+class RobotRepeated(val robot: Robot, val repeat: Int) extends Robot:
+  export robot.{direction, position, turn}
+  override def act(): Unit =
+    for _ <- 0 to repeat do robot.act()
 
 @main def testRobot(): Unit =
   val robot = LoggingRobot(SimpleRobot((0, 0), Direction.North))
