@@ -19,7 +19,7 @@ class ParserTest extends AnyFunSuite with Matchers:
     parser.parseAll("aabcdc".toList) should be(false)
     parser.parseAll("".toList) should be(true)
 
-  test("test NotEmpty parser"):
+  test("test NonEmpty parser"):
     parserNE.parseAll("0101".toList) should be(true)
     parserNE.parseAll("0123".toList) should be(false)
     parserNE.parseAll(List()) should be(false)
@@ -29,12 +29,12 @@ class ParserTest extends AnyFunSuite with Matchers:
     parserNTC.parseAll("XYYZ".toList) should be(false)
     parserNTC.parseAll("".toList) should be(true)
 
-  test("test NotEmpty and NotTwoConsecutive parser"):
+  test("test NonEmpty and NotTwoConsecutive parser"):
     parserNTCNE.parseAll("XYZ".toList) should be(true)
     parserNTCNE.parseAll("XYYZ".toList) should be(false)
     parserNTCNE.parseAll("".toList) should be(false)
 
-  test("test string parser"):
+  test("test charParser"):
     sparser.parseAll("aabc".toList) should be(true)
     sparser.parseAll("aabcdc".toList) should be(false)
     sparser.parseAll("".toList) should be(true)

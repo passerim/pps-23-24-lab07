@@ -37,11 +37,10 @@ class RobotTest extends AnyFlatSpec with Matchers:
     robot.act()
     robot.position should be((0, 0))
 
-  "A DumbRobot" should "never turn" in {
+  "A DumbRobot" should "never turn" in:
     val robot = DumbRobot(SimpleRobot((0, 0), Direction.North))
     robot.turn(Direction.East)
     robot.direction should be(Direction.North)
-  }
 
   "A RobotWithBattery" should "stop acting after battery is discharged" in:
     val batteryCharge = 5

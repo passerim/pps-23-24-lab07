@@ -25,7 +25,7 @@ class ParserJUnitTest:
     assertTrue(parser.parseAll("".toList))
 
   @Test
-  def testNotEmptyParser(): Unit =
+  def testNonEmptyParser(): Unit =
     assertTrue(parserNE.parseAll("0101".toList))
     assertFalse(parserNE.parseAll("0123".toList))
     assertFalse(parserNE.parseAll(List()))
@@ -37,13 +37,13 @@ class ParserJUnitTest:
     assertTrue(parserNTC.parseAll("".toList))
 
   @Test
-  def testNotEmptyAndNotTwoConsecutiveParser(): Unit =
+  def testNonEmptyAndNotTwoConsecutiveParser(): Unit =
     assertTrue(parserNTCNE.parseAll("XYZ".toList))
     assertFalse(parserNTCNE.parseAll("XYYZ".toList))
     assertFalse(parserNTCNE.parseAll("".toList))
 
   @Test
-  def testStringParser(): Unit =
+  def testCharParser(): Unit =
     assertTrue(sparser.parseAll("aabc".toList))
     assertFalse(sparser.parseAll("aabcdc".toList))
     assertTrue(sparser.parseAll("".toList))
