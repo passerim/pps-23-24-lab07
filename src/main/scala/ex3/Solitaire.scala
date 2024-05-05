@@ -2,7 +2,7 @@ package ex3
 
 import scala.math.abs
 
-object Solitaire extends App:
+object Solitaire:
   type Position        = (Int, Int)
   type Solution        = Iterable[Position]
   type IterableFactory = Solution => Iterable[Solution]

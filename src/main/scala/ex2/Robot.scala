@@ -30,7 +30,6 @@ class SimpleRobot(var position: Position, var direction: Direction) extends Robo
     case Direction.East  => (position._1 + 1, position._2)
     case Direction.South => (position._1, position._2 - 1)
     case Direction.West  => (position._1 - 1, position._2)
-
   override def toString: String = s"robot at $position facing $direction"
 
 class DumbRobot(val robot: Robot) extends Robot:
@@ -52,7 +51,7 @@ class RobotWithBattery(val robot: Robot, private var batteryCharge: Int) extends
       robot.act()
 
 class RobotCanFail(val robot: Robot, val failProbability: Double) extends Robot:
-  require(0 to 1 contains failProbability)
+  require(failProbability >= 0.0 && failProbability <= 1.0)
   export robot.{direction, position, turn}
   private val random: Random = Random()
   override def act(): Unit =
